@@ -10,14 +10,6 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import tensorflow as tf
 
-physical_devices = tf.config.experimental.list_physical_devices('GPU')
-assert len(physical_devices) > 0, "Not enough GPU hardware devices available"
-tf.config.experimental.set_memory_growth(physical_devices[0], True)
-
-
-tf.keras.backend.clear_session()
-
-print('-------------------------MERMORY CLEARED ---------------------')
 EMBEDDING_DIM = 50
 # load in training/test set
 data = pd.read_csv('tweets.160k.random.csv', encoding='utf-8')
@@ -44,7 +36,7 @@ y_train = keras.utils.to_categorical(y_train) # 2 classes
 y_test = keras.utils.to_categorical(y_test)
 
 embeddings_index = {}
-GLOVE_DIR = "C:/Users/chris/Documents/GitHub/CDS2019/checkoff/Week11/"
+GLOVE_DIR = "C:/Users/Asus/Documents/GitHub/CDS2019/checkoff/Week11/"
 f = open(os.path.join(GLOVE_DIR, 'glove.6B.50d.txt'),encoding="utf8")
 for line in f:
     values = line.split()
@@ -63,16 +55,18 @@ for word, i in word_index.items():
         embedding_matrix[i] = embedding_vector
 
 model = Sequential()
-model.add(Embedding(len(word_index)+1, EMBEDDING_DIM, weights=[embedding_matrix], trainable=False))
-model.add(LSTM(128))
+model.add(Embedding(len(word_index)+1, EMBEDDING_DIM, weights=[embedding_matrix], trainable=True))
+model.add(Dropout(0.8))
+model.add(LSTM(256))
 model.add(Dense(2))
+model.add(Dropout(0.8))
 model.add(Activation('softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-history = model.fit(x_train, y_train, batch_size=8, epochs=20, verbose=1, validation_split=0.2)
+history = model.fit(x_train, y_train, batch_size=256, epochs=10, verbose=1, validation_split=0.2)
 
-score = model.evaluate(x_test, y_test, batch_size=8, verbose=1)
+score = model.evaluate(x_test, y_test, batch_size=256, verbose=1)
 print('Test score:', score[0])
 print('Test accuracy:', score[1])
 
