@@ -1,0 +1,4 @@
+Collecting jupyter_http_over_ws
+  Downloading https://files.pythonhosted.org/packages/7f/e3/4f7044e988327a10bc459e3d3590c59c1cdbdb53c83670c8606d1fbee3c9/jupyter_http_over_ws-0.0.6-py2.py3-none-any.whl
+Collecting notebook>=5.0
+  Downloading https://files.pythonhosted.org/packages/f5/69/d2ffaf7efc20ce47469187e3a41e6e03e17b45de5a6559f4e7ab3eace5e1/notebook-6.0.2-py3-none-any.whl (9.7MB)
