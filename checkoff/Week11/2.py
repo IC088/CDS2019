@@ -56,10 +56,10 @@ for word, i in word_index.items():
 
 model = Sequential()
 model.add(Embedding(len(word_index)+1, EMBEDDING_DIM, weights=[embedding_matrix], trainable=True))
-model.add(Dropout(0.8))
+model.add(Dropout(0.5))
 model.add(LSTM(256))
 model.add(Dense(2))
-model.add(Dropout(0.8))
+model.add(Dropout(0.5))
 model.add(Activation('softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
