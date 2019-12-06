@@ -1,8 +1,10 @@
 import cv2
 import math
 
-videoFile = "scene1.mp4"
+videoFile = ".\\video\\dancing.mp4"
 
+
+print(videoFile)
 cap = cv2.VideoCapture(videoFile)
 frameRate = cap.get(5) #frame rate
 print(frameRate)
@@ -14,7 +16,7 @@ while(cap.isOpened()):
         break
     if (frameId % math.floor(frameRate*5) == 0):
         print(f'Saving {str(int(x))} now')
-        filename = str(int(x)) + ".jpg"
+        filename = '.\\test_image_friends_1\\'+str(int(x)) + ".jpg"
         x+=1
         cv2.imwrite(filename, frame)
         # cv2.show(frame)
